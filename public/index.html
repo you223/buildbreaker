@@ -9,7 +9,6 @@
 
 <link href="./foo.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="lib/counter/jquery.counter-analog.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,11 +17,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
-    <div class="row" id="app">
-       <audio src="./hoge.mp3" autoplay></audio>
+<script id='success-template' type='text/template'>
+    <div class="col-lg-12 headder"><br></div>
+    <div class="col-lg-12 successMark text-center"><div class="blinking" v-text="msg"></div></div>
+    <div class="col-lg-12 headder"><br></font></div>
+</script>
+<script id='failed-template' type='text/template' v-ref:fTemp>
+    <div class="row">
+       <audio v-bind:src=soundUrl autoplay></audio>
        <div class="col-lg-4" rowspan="3">
-            <img src="./trimed.jpg" alt="サンプル" v-bind:width=photoSize v-bind:height=photoSize">
+            <img v-bind:src=imgUrl alt="サンプル" v-bind:width=photoSize v-bind:height=photoSize">
         </div>
         <div class="col-lg-8 col-lg-height col-full-height">
             <MARQUEE direction="left" scrollamount="100">
@@ -32,17 +36,21 @@
         <div class="col-lg-8">
             <div id="timer" v-text="counterClock"></div>
         </div>
-        <div class="col-lg-8 genMsg">call 西井康人</div>
+        <div class="col-lg-8 genMsg">call {{userName}}</div>
         <div class="col-lg-12 col-lg-height col-full-height">
             <MARQUEE direction="right" scrollamount="400"
                 scrolldelay="800">
                 <div class="blinking" v-text="message"></div>
             </MARQUEE>
         </div>
+    </div>
+</script>
+<body>
+    <div id="app">
+        <component :is="currentView"></component>
         <script src="lib/jquery-2.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="lib/vue.min.js"></script>
-        <script src="lib/counter/jquery.counter.js"></script>
         <script type="text/javascript" src="./app.js"></script>
     </div>
 </body>

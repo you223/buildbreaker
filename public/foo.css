@@ -19,6 +19,15 @@ MARQUEE {
     text-align: right;
 }
 
+.successMark {
+    font-size: 30vh;
+    color: #00ff66
+}
+
+.headder {
+    font-size: 20vh;
+}
+
 .blinking{
     -webkit-animation:blink 0.5s ease-in-out infinite alternate;
     -moz-animation:blink 0.5s ease-in-out infinite alternate;
