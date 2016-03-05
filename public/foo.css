@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+div {
+    background-color: #2e3033;
+}
+MARQUEE {
+    color: yellow;
+    font-size: 18vh;
+    font-style: italic;
+}
+
+#timer {
+    color: red;
+    font-size: 18vh;
+}
+
+.genMsg {
+    color: #f9fafb;
+    font-size: 10vh;
+    text-align: right;
+}
+
+.blinking{
+    -webkit-animation:blink 0.5s ease-in-out infinite alternate;
+    -moz-animation:blink 0.5s ease-in-out infinite alternate;
+    animation:blink 0.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
