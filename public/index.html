@@ -24,9 +24,9 @@
 </script>
 <script id='failed-template' type='text/template' v-ref:fTemp>
     <div class="row">
-       <audio src="./hoge.mp3" autoplay></audio>
+       <audio v-bind:src=soundUrl autoplay></audio>
        <div class="col-lg-4" rowspan="3">
-            <img src="./trimed.jpg" alt="サンプル" v-bind:width=photoSize v-bind:height=photoSize">
+            <img v-bind:src=imgUrl alt="サンプル" v-bind:width=photoSize v-bind:height=photoSize">
         </div>
         <div class="col-lg-8 col-lg-height col-full-height">
             <MARQUEE direction="left" scrollamount="100">
@@ -36,7 +36,7 @@
         <div class="col-lg-8">
             <div id="timer" v-text="counterClock"></div>
         </div>
-        <div class="col-lg-8 genMsg">call hoge</div>
+        <div class="col-lg-8 genMsg">call {{userName}}</div>
         <div class="col-lg-12 col-lg-height col-full-height">
             <MARQUEE direction="right" scrollamount="400"
                 scrolldelay="800">

@@ -12,7 +12,7 @@ var successCompo = Vue.extend({
 
 var failedCompo = Vue.extend({
     template : "#failed-template",
-    props : [ 'counterClock', 'photoSize', 'counterId' ],
+    props : [ 'counterClock', 'photoSize', 'counterId', 'userName', 'imgUrl', 'soundUrl' ],
     data : {
         about : null,
         message : null,
@@ -63,8 +63,10 @@ var failedCompo = Vue.extend({
         clearInterval(this.$data.counterId);
     },
     methods : {
-        hoge : function() {
-            console.log("hoge");
+        setData : function(name, imgUrl, soundUrl) {
+            this.$data.userName = name;
+            this.$data.imgUrl = imgUrl;
+            this.$data.soundUrl = soundUrl;
         },
         setCount : function(count) {
             this.$data.counterClock = count;
@@ -103,8 +105,8 @@ setInterval(function() {
         var status = json.status;
         if (status == "failed") {
             vm.currentView = 'failed-component';
-            // initCounter();
-            vm.$refs.fTemp.hoge();
+            //TODO: Is there other method?
+            vm.$children[0].setData(json.detail.name, json.detail.photo, json.detail.sound);
         } else if (status != "failed") {
             vm.currentView = 'success-component';
         }
