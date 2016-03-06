@@ -32,11 +32,25 @@ func (s State) String() string {
 
 var state State = SUCCEEDED
 var author string
+var photos = map[string]string{"nobu":"test.png", "wataru":"test2.png"}
+var sound = map[string]string{"nobu":"http://dummy.com", "wataru":"http://dummy.com"}
+
+// Breaker
+type Breaker struct {
+	Status  string `json:"status"`
+	Detail BreakerDetail `json:"detail"`
+}
+
+type BreakerDetail struct {
+	Name  string `json:"name"`
+	Photo string `json:"photo"`
+    Sound string `json:"sound"`
+}
 
 func main() {
 	http.HandleFunc("/putResult", putResult)
-	http.HandleFunc("/checkResult", checkResult)
-	http.HandleFunc("/", hello)
+	http.HandleFunc("/buildStatus", getStatus)
+    http.HandleFunc("/", hello)
 	fmt.Println("listening...")
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
@@ -64,7 +78,40 @@ func putResult(res http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func checkResult(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintln(res, "State=", state.String())
-	fmt.Fprintln(res, "Author=", author)
+func getStatus(res http.ResponseWriter, req *http.Request) {
+    res.Header().Set("Content-Type", "application/json")
+    
+    var breaker Breaker
+    
+    if state == SUCCEEDED {
+        breaker = getSuccessStatus()
+    } else if state == FAILED {
+        breaker = getFailedStatus()
+    } else if state == RECOVERED {
+        breaker = getRecoveredStatus()
+    } else {
+		return
+    }
+    
+    outgoingJSON, error := json.Marshal(breaker)
+
+	if error != nil {
+		log.Println(error.Error())
+		http.Error(res, error.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Fprint(res, string(outgoingJSON))
+}
+
+func getSuccessStatus() (Breaker) {
+    return Breaker{"success", BreakerDetail{"","",""}}
+}
+
+func getFailedStatus() (Breaker) {
+    return Breaker{"failed", BreakerDetail{author, photos[author], sound[author]}}
+}
+
+func getRecoveredStatus() (Breaker) {
+    return Breaker{"recovered", BreakerDetail{author, photos[author], sound[author]}}
 }
