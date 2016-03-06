@@ -7,7 +7,7 @@
             msg : null
         },
         created : function() {
-            this.msg = "...loading";
+            this.msg = "Build Cop standby...";
         }
     })
 

@@ -2,6 +2,9 @@
 div {
     background-color: #2e3033;
 }
+.lBg {
+    background-color: white;
+}
 MARQUEE {
     color: yellow;
     font-size: 18vh;
@@ -20,7 +23,7 @@ MARQUEE {
 }
 
 .successMark {
-    font-size: 30vh;
+    font-size: 10vh;
     color: #00ff66
 }
 
