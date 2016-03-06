@@ -94,7 +94,7 @@
         },
         created : function() {
             this.msg = "thanks!";
-            this.photoSize = "300px";
+            this.photoSize = "450px";
         },
         methods : {
             setData : function(name, imgUrl, soundUrl) {
