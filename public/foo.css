@@ -5,6 +5,11 @@ div {
 .lBg {
     background-color: white;
 }
+
+.bBg {
+    background-color: #2e3033;
+}
+
 MARQUEE {
     color: yellow;
     font-size: 18vh;
@@ -22,6 +27,12 @@ MARQUEE {
     text-align: right;
 }
 
+.greeting {
+    color: white;
+    font-size: 15vh;
+    text-align: right;
+}
+
 .successMark {
     font-size: 10vh;
     color: #00ff66
@@ -36,6 +47,7 @@ MARQUEE {
     -moz-animation:blink 0.5s ease-in-out infinite alternate;
     animation:blink 0.5s ease-in-out infinite alternate;
 }
+
 @-webkit-keyframes blink{
     0% {opacity:0;}
     100% {opacity:1;}
