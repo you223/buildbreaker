@@ -1,5 +1,5 @@
 (function() {
-    var apiUrl = 'http://192.168.1.123:8080/buildStatus';
+    var apiUrl = './json/dummy.json';
 
     var successCompo = Vue.extend({
         template : "#success-template",
@@ -50,7 +50,7 @@
                 sec /= 1000;
                 msec /= 10;
 
-                if (foo - zoom > 1000 && grand.photoSize <= 600) {
+                if (foo - zoom > 5000 && grand.photoSize <= 600) {
                     grand.scalePhotoSize(1.05);
                     zoom = foo;
                 }
@@ -87,12 +87,22 @@
 
     var recoveredCompo = Vue.extend({
         template : "#recovered-template",
+        props : [ 'userName', 'imgUrl', 'soundUrl' ],
         data : {
-            msg : null
+            msg : null,
+            photoSize : null
         },
         created : function() {
             this.msg = "thanks!";
-        }
+            this.photoSize = "300px";
+        },
+        methods : {
+            setData : function(name, imgUrl, soundUrl) {
+                this.$data.userName = name;
+                this.$data.imgUrl = imgUrl;
+                this.$data.soundUrl = soundUrl;
+            },
+        },
     })
 
     var vm = new Vue({
@@ -126,6 +136,8 @@
                         vm.currentView = 'success-component';
                     } else if (status == "recovered") {
                         vm.currentView = 'recovered-component';
+                        vm.$children[0].setData(json.detail.name,
+                                json.detail.photo, json.detail.sound);
                     } else {
                         vm.currentView = 'success-component';
                     }
