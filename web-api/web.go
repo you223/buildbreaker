@@ -34,8 +34,8 @@ func (s State) String() string {
 
 var state State = SUCCEEDED
 var author string
-var photos = map[string]string{"nobu":"test.png", "wataru":"test2.png"}
-var sound = map[string]string{"nobu":"http://dummy.com", "wataru":"http://dummy.com"}
+var photos = map[string]string{"nobu":"test.png", "wataru":"test2.png", "nantake":"test3.png"}
+var sound = map[string]string{"nobu":"http://dummy.com", "wataru":"http://dummy.com", "nantake":"http://dummy.com"}
 
 // Breaker
 type Breaker struct {
