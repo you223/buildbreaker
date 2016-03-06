@@ -1,0 +1,8 @@
+﻿{
+    "status":"failed",
+    "detail":{
+        "name":"テスト太郎",
+        "photo":"./trimed.jpg",
+        "sound":"./hoge.mp3"
+    }
+}
