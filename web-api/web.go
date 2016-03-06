@@ -2,9 +2,9 @@
 package main
 
 import (
-    "encoding/json"
+	"encoding/json"
 	"fmt"
-    "log"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -17,6 +17,14 @@ const (
 	SUCCEEDED
 	FAILED
 	RECOVERED
+)
+
+type Fixed_auther int
+
+const (
+	UNKNOWN = iota
+	SAME
+	NOT_SAME
 )
 
 func (s State) String() string {
@@ -34,25 +42,28 @@ func (s State) String() string {
 
 var state State = SUCCEEDED
 var author string
-var photos = map[string]string{"nobu":"test.png", "wataru":"test2.png"}
-var sound = map[string]string{"nobu":"http://dummy.com", "wataru":"http://dummy.com"}
+var pre_author string
+var fixed_author Fixed_auther = SAME
+
+var photos = map[string]string{"nobu": "test.png", "wataru": "test2.png", "nantake": "test3.png"}
+var sound = map[string]string{"nobu": "http://dummy.com", "wataru": "http://dummy.com", "nantake": "http://dummy.com"}
 
 // Breaker
 type Breaker struct {
-	Status  string `json:"status"`
+	Status string        `json:"status"`
 	Detail BreakerDetail `json:"detail"`
 }
 
 type BreakerDetail struct {
 	Name  string `json:"name"`
 	Photo string `json:"photo"`
-    Sound string `json:"sound"`
+	Sound string `json:"sound"`
 }
 
 func main() {
 	http.HandleFunc("/putResult", putResult)
 	http.HandleFunc("/buildStatus", getStatus)
-    http.HandleFunc("/", hello)
+	http.HandleFunc("/", hello)
 	fmt.Println("listening...")
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
@@ -68,6 +79,7 @@ func putResult(res http.ResponseWriter, req *http.Request) {
 	m, _ := url.ParseQuery(req.URL.RawQuery)
 	fmt.Fprintln(res, "Name=", m["name"][0])
 	fmt.Fprintln(res, "Result=", m["result"][0])
+	pre_author = author
 	author = m["name"][0]
 	if m["result"][0] == "SUCCEEDED" {
 		if state == FAILED {
@@ -78,24 +90,30 @@ func putResult(res http.ResponseWriter, req *http.Request) {
 	} else {
 		state = FAILED
 	}
+
+	if pre_author == author {
+		fixed_author = SAME
+	} else {
+		fixed_author = NOT_SAME
+	}
 }
 
 func getStatus(res http.ResponseWriter, req *http.Request) {
-    res.Header().Set("Content-Type", "application/json")
-    
-    var breaker Breaker
-    
-    if state == SUCCEEDED {
-        breaker = getSuccessStatus()
-    } else if state == FAILED {
-        breaker = getFailedStatus()
-    } else if state == RECOVERED {
-        breaker = getRecoveredStatus()
-    } else {
+	res.Header().Set("Content-Type", "application/json")
+
+	var breaker Breaker
+
+	if state == SUCCEEDED {
+		breaker = getSuccessStatus()
+	} else if state == FAILED {
+		breaker = getFailedStatus()
+	} else if state == RECOVERED {
+		breaker = getRecoveredStatus()
+	} else {
 		return
-    }
-    
-    outgoingJSON, error := json.Marshal(breaker)
+	}
+
+	outgoingJSON, error := json.Marshal(breaker)
 
 	if error != nil {
 		log.Println(error.Error())
@@ -106,14 +124,14 @@ func getStatus(res http.ResponseWriter, req *http.Request) {
 	fmt.Fprint(res, string(outgoingJSON))
 }
 
-func getSuccessStatus() (Breaker) {
-    return Breaker{"success", BreakerDetail{"","",""}}
+func getSuccessStatus() Breaker {
+	return Breaker{"success", BreakerDetail{"", "", ""}}
 }
 
-func getFailedStatus() (Breaker) {
-    return Breaker{"failed", BreakerDetail{author, photos[author], sound[author]}}
+func getFailedStatus() Breaker {
+	return Breaker{"failed", BreakerDetail{author, photos[author], sound[author]}}
 }
 
-func getRecoveredStatus() (Breaker) {
-    return Breaker{"recovered", BreakerDetail{author, photos[author], sound[author]}}
+func getRecoveredStatus() Breaker {
+	return Breaker{"recovered", BreakerDetail{author, photos[author], sound[author]}}
 }
