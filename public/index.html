@@ -18,9 +18,11 @@
     <![endif]-->
 </head>
 <script id='success-template' type='text/template'>
+    <div class="row">
     <audio v-bind:src=soundUrl autoplay></audio>
-    <div class="col-lg-12 lBg"><img src="./media/tree3.jpg" height="100%"></img></div>
+    <div class="col-lg-12 lBg center-block"><img src="./media/tree3.jpg" height="1200px"></img></div>
     <div class="col-lg-12 successMark text-right"><div class="blinking" v-text="msg"></div></div>
+    </div>
 </script>
 <script id='failed-template' type='text/template' v-ref:fTemp>
     <div class="row">

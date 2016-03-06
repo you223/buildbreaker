@@ -1,5 +1,5 @@
 (function() {
-    var apiUrl = './json/dummy.json';
+    var apiUrl = 'http://192.168.1.123:8080/buildStatus'; //./json/dummy.json
 
     var successCompo = Vue.extend({
         template : "#success-template",
@@ -50,7 +50,7 @@
                 sec /= 1000;
                 msec /= 10;
 
-                if (foo - zoom > 5000 && grand.photoSize <= 600) {
+                if (foo - zoom > 1000 && grand.photoSize <= 600) {
                     grand.scalePhotoSize(1.05);
                     zoom = foo;
                 }
@@ -142,5 +142,5 @@
                         vm.currentView = 'success-component';
                     }
                 })
-    }, 1000);
+    }, 2000);
 })();
