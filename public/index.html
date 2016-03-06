@@ -18,6 +18,7 @@
     <![endif]-->
 </head>
 <script id='success-template' type='text/template'>
+    <audio v-bind:src=soundUrl autoplay></audio>
     <div class="col-lg-12 headder"><br></div>
     <div class="col-lg-12 successMark text-center"><div class="blinking" v-text="msg"></div></div>
     <div class="col-lg-12 headder"><br></font></div>
@@ -36,7 +37,7 @@
         <div class="col-lg-8">
             <div id="timer" v-text="counterClock"></div>
         </div>
-        <div class="col-lg-8 genMsg">call {{userName}}</div>
+        <div class="col-lg-8 genMsg">call <b>→ {{userName}}</div>
         <div class="col-lg-12 col-lg-height col-full-height">
             <MARQUEE direction="right" scrollamount="400"
                 scrolldelay="800">
@@ -44,6 +45,11 @@
             </MARQUEE>
         </div>
     </div>
+</script>
+<script id='recovered-template' type='text/template'>
+    <div class="col-lg-12 headder"><br></div>
+    <div class="col-lg-12 successMark text-center"><div class="blinking" v-text="msg"></div></div>
+    <div class="col-lg-12 headder"><br></font></div>
 </script>
 <body>
     <div id="app">

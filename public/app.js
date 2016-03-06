@@ -85,6 +85,16 @@
         },
     })
 
+    var recoveredCompo = Vue.extend({
+        template : "#recovered-template",
+        data : {
+            msg : null
+        },
+        created : function() {
+            this.msg = "thanks!";
+        }
+    })
+
     var vm = new Vue({
         el : '#app',
         data : {
@@ -93,6 +103,7 @@
         components : {
             'failed-component' : failedCompo,
             'success-component' : successCompo,
+            'recovered-component' : recoveredCompo,
         }
     });
 
@@ -111,7 +122,11 @@
                         // TODO: Is there other method?
                         vm.$children[0].setData(json.detail.name,
                                 json.detail.photo, json.detail.sound);
-                    } else if (status != "failed") {
+                    } else if (status == "success") {
+                        vm.currentView = 'success-component';
+                    } else if (status == "recovered") {
+                        vm.currentView = 'recovered-component';
+                    } else {
                         vm.currentView = 'success-component';
                     }
                 })
