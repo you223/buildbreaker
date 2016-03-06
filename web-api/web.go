@@ -22,7 +22,7 @@ const (
 type Fixed_auther int
 
 const (
-	UNKNOWN = iota
+	UNKNOWN2 = iota
 	SAME
 	NOT_SAME
 )
@@ -46,7 +46,8 @@ var pre_author string
 var fixed_author Fixed_auther = SAME
 
 var photos = map[string]string{"nobu": "test.png", "wataru": "test2.png", "nantake": "test3.png"}
-var sound = map[string]string{"nobu": "http://dummy.com", "wataru": "http://dummy.com", "nantake": "http://dummy.com"}
+var errorSound = map[string]string{"nobu": "http://192.168.1.79/daisanji/buildbreaker/public/sound/abuse/12_out.wav", "wataru": "http://192.168.1.79/daisanji/buildbreaker/public/sound/abuse/12_out.wav", "nantake": "http://192.168.1.79/daisanji/buildbreaker/public/sound/abuse/12_out.wav"}
+var recoverSound = map[string]string{"nobu": "http://192.168.1.79/daisanji/buildbreaker/public/sound/happy/06_Recovery.wav", "wataru": "http://192.168.1.79/daisanji/buildbreaker/public/sound/happy/06_Recovery.wav", "nantake": "http://192.168.1.79/daisanji/buildbreaker/public/sound/happy/06_Recovery.wav"}
 
 // Breaker
 type Breaker struct {
@@ -100,6 +101,7 @@ func putResult(res http.ResponseWriter, req *http.Request) {
 
 func getStatus(res http.ResponseWriter, req *http.Request) {
 	res.Header().Set("Content-Type", "application/json")
+    res.Header().Set("Access-Control-Allow-Origin", "*")
 
 	var breaker Breaker
 
@@ -129,9 +131,9 @@ func getSuccessStatus() Breaker {
 }
 
 func getFailedStatus() Breaker {
-	return Breaker{"failed", BreakerDetail{author, photos[author], sound[author]}}
+	return Breaker{"failed", BreakerDetail{author, photos[author], errorSound[author]}}
 }
 
 func getRecoveredStatus() Breaker {
-	return Breaker{"recovered", BreakerDetail{author, photos[author], sound[author]}}
+	return Breaker{"recovered", BreakerDetail{author, photos[author], recoverSound[author]}}
 }
