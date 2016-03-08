@@ -1,6 +1,6 @@
 (function() {
     "use strict";
-    var apiUrl = 'http://192.168.1.123:8080/buildStatus'; //./json/dummy.json
+    var apiUrl = window.location.origin + '/buildStatus'; //./json/dummy.json
 
     var successCompo = Vue.extend({
         template : "#success-template",
