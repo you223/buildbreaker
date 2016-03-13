@@ -51,7 +51,7 @@
                 sec /= 1000;
                 msec /= 10;
 
-                if (foo - zoom > 1000 && grand.photoSize <= 600) {
+                if (foo - zoom > 1000 && grand.photoSize <= 500) {
                     grand.scalePhotoSize(1.05);
                     zoom = foo;
                 }
@@ -94,8 +94,8 @@
             photoSize : null
         },
         created : function() {
-            this.msg = "thanks!";
-            this.photoSize = "450px";
+            this.msg = "Thanks";
+            this.photoSize = "320px";
         },
         methods : {
             setData : function(name, imgUrl, soundUrl) {

@@ -10,69 +10,64 @@
 <link href="./foo.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <script id='success-template' type='text/template'>
-    <div class="container-fluid">
-    <div class="row">
     <audio v-bind:src=soundUrl autoplay></audio>
-    <div class="col-lg-12 lBg center-block"><img src="./media/tree3.jpg" width="100%"></img></div>
-    <div class="col-lg-12 successMark text-right"><div class="blinking" v-text="msg"></div></div>
+    <div class="row">
+        <div class="col-md-12 successMark text-right"><div class="blinking" v-text="msg"></div></div>
     </div>
+    <div class="row">
+        <div class="col-md-12 bBg" style="padding:0"><img src="./media/tree3.jpg" class="img-responsive"></img></div>
     </div>
+    <div class="row"><div class="col-md-12 headder"><br></div></div>
 </script>
 <script id='failed-template' type='text/template' v-ref:fTemp>
-   <audio v-bind:src=soundUrl autoplay></audio>
-   <div class="container-fluid">
-   <div class="row">
-   <div class="col-lg-3" rowspan="3">
-       <img v-bind:src=imgUrl alt="サンプル" v-bind:width=photoSize v-bind:height=photoSize">
-   </div>
-   <div class="col-lg-9 col-lg-height col-full-height">
-       <MARQUEE direction="left" scrollamount="100">
-           <div v-text="about"></div>
-       </MARQUEE>
-   </div>
-   <div class="col-lg-9">
-       <div id="timer" v-text="counterClock"></div>
-   </div>
-   <div class="col-lg-9 genMsg">call <b>→ {{userName}}</div>
-   <div class="col-lg-12 col-lg-height col-full-height">
-       <MARQUEE direction="right" scrollamount="400" scrolldelay="800">
-           <div class="blinking" v-text="message"></div>
-       </MARQUEE>
-   </div>
-   <div class="col-lg-12"><br></div>
-   </div>
-   </div>
+    <audio v-bind:src=soundUrl autoplay></audio>
+    <div class="row">
+        <div class="col-md-3">
+           <img v-bind:src=imgUrl v-bind:width=photoSize v-bind:height=photoSize/>
+        </div>
+        <div class="col-md-9">
+            <div class="col-md-12">
+                <MARQUEE direction="left" scrollamount="100">
+                       <div v-text="about"></div>
+                </MARQUEE>
+            </div>
+            <div class="col-md-12 pull-right" id="timer" v-text="counterClock"></div>
+            <div class="col-md-12 pull-right genMsg">call <b>→ {{userName}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+           <MARQUEE direction="right" scrollamount="400" scrolldelay="800">
+               <div class="blinking" v-text="message"></div>
+           </MARQUEE>
+        </div>
+    </div>
+    <div class="row"><div class="col-md-12 headder"><br></div></div>
 </script>
 <script id='recovered-template' type='text/template'>
     <audio v-bind:src=soundUrl autoplay></audio>
-    <div class="container-fluid">
+    <div class="row"><div class="col-md-12 headder"><br></div></div>
     <div class="row">
-    <div class="col-lg-12 headder"><br></div>
-    <div class="col-lg-3" rowspan="2">
-        <img class="bBg" v-bind:src=imgUrl alt="サンプル" v-bind:width=photoSize v-bind:height=photoSize"></img>
+        <div class="col-md-5">
+            <img class="bBg" v-bind:src=imgUrl v-bind:width=photoSize v-bind:height=photoSize"></img>
+        </div>
+        <div class="col-md-7">
+            <div class="col-md-12 greeting">Recovered!</div>
+            <div class="col-md-12 greeting">{{msg}}</div>
+        </div>
+    <div class="col-md-12 greeting">{{userName}}!!</div>
     </div>
-    <div class="col-lg-9 greeting">Recovered! Thanks {{userName}}!!</div>
-    <div class="col-lg-12 headder"><br></div>
-    </div>
-    </div>
-    </div>
-
+    <div class="row"><div class="col-md-12 headder"><br></div></div>
 </script>
-<body>
+<body class="container-fluid" STYLE="overflow: hidden;">
     <div id="app">
         <component :is="currentView"></component>
         <script src="lib/jquery-2.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="lib/vue.min.js"></script>
-        <script type="text/javascript" src="./app.js"></script>
+        <script src="./app.js"></script>
     </div>
 </body>
 </html>

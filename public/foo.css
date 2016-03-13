@@ -18,7 +18,8 @@ MARQUEE {
 
 #timer {
     color: red;
-    font-size: 18vh;
+    font-size: 16vh;
+    text-align: right;
 }
 
 .genMsg {
